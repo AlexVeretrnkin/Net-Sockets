@@ -1,0 +1,10 @@
+<h1>Hi, enter your name :)</h1>
+
+<input class="input mb-5" [(ngModel)]="inputValue" type="text">
+
+<button
+    class="button"
+    [disabled]="inputValue === '' || !inputValue"
+>
+  Play !
+</button>
