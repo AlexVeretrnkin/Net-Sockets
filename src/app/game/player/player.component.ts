@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
-import { PlayerState } from '../../shared/model/player.state';
-import { PlayerTeam } from '../../shared/model/player.team';
+import {Component, Input, OnInit} from '@angular/core';
+import {PlayerState} from '../../shared/model/player.state';
+import {PlayerTeam} from '../../shared/model/player.team';
 
 @Component({
   selector: 'app-player',
@@ -9,15 +8,15 @@ import { PlayerTeam } from '../../shared/model/player.team';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
-  private state: PlayerState;
-  private team: PlayerTeam;
+  @Input() team: PlayerTeam;
+  @Input() state: PlayerState;
 
   private stateEnum: typeof PlayerState = PlayerState;
   private playerEnum: typeof PlayerTeam = PlayerTeam;
 
   constructor() { }
 
-  public ngOnInit(): void {
+  ngOnInit() {
     this.state = PlayerState.STILL;
   }
 
