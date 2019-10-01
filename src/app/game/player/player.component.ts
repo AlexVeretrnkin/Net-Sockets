@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PlayerState} from '../../shared/model/player.state';
 import {PlayerTeam} from '../../shared/model/player.team';
 
@@ -8,12 +8,13 @@ import {PlayerTeam} from '../../shared/model/player.team';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
-  private state: PlayerState;
-  private team: PlayerTeam;
+  @Input() team: PlayerTeam;
+  @Input() state: PlayerState;
 
   constructor() { }
 
   ngOnInit() {
+    this.team = PlayerTeam.ALLY;
     this.state = PlayerState.STILL;
   }
 
