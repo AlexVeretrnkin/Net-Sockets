@@ -1,12 +1,14 @@
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { GameModule } from './game/game.module';
 import { HelloComponent } from './hello/hello.component';
+import { WebsocketModule } from './websocket';
 
 @NgModule(
   {
@@ -16,6 +18,12 @@ import { HelloComponent } from './hello/hello.component';
     ],
     imports: [
       BrowserModule,
+
+      WebsocketModule.config(
+        {
+          url: environment.ws
+        }
+      ),
 
       CoreModule,
       GameModule,
