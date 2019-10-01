@@ -17,7 +17,8 @@ export class PlayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.state = PlayerState.STILL;
+    this.team = PlayerTeam.ALLY;
+    this.state = PlayerState.ATTACKING;
   }
 
 }
