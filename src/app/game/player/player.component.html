@@ -1,1 +1,19 @@
-<p>player works!</p>
+<div *ngIf="team == 0">
+  <img *ngIf="state == 0" src="./assets/player/ally_still.png">
+
+  <img *ngIf="state == 1" src="./assets/player/ally_dazed.png">
+
+  <img *ngIf="state == 2" src="./assets/player/ally_attacking.png">
+
+  <img *ngIf="state == 3" src="./assets/player/ally_defending.png">
+</div>
+
+<div *ngIf="team == 1">
+  <img *ngIf="state == 0" src="./assets/player/enemy_still.png">
+
+  <img *ngIf="state == 1" src="./assets/player/enemy_dazed.png">
+
+  <img *ngIf="state == 2" src="./assets/player/enemy_attacking.png">
+
+  <img *ngIf="state == 3" src="./assets/player/enemy_defending.png">
+</div>
