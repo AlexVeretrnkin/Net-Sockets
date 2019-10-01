@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlayerState } from '../../shared/model/player.state';
 
 @Component({
   selector: 'app-arena',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArenaComponent implements OnInit {
 
+  public enemyStateEnum: PlayerState;
+  public allyStateEnum: PlayerState;
+
+  private stateEnum: typeof PlayerState = PlayerState;
+
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.initDefaultStates();
+  }
+
+  private initDefaultStates(): void {
+    this.enemyStateEnum = this.stateEnum.STILL;
+    this.allyStateEnum = this.stateEnum.STILL;
   }
 
 }
