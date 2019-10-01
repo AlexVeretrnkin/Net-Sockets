@@ -1,2 +1,8 @@
-<app-player [health]="100" [team]="0" [state]="1"></app-player>
-<app-player [health]="100" [team]="1" [state]="1"></app-player>
+<app-player
+    [team]="playerEnum.ALLY"
+    [state]="allyStateEnum"
+></app-player>
+<app-player
+    [team]="playerEnum.ENEMY"
+    [state]="enemyStateEnum"
+></app-player>
