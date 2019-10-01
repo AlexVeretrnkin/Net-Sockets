@@ -9,8 +9,8 @@ import { PlayerTeam } from '../../shared/model/player.team';
 })
 export class ArenaComponent implements OnInit {
 
-  public enemyStateEnum: PlayerState;
-  public allyStateEnum: PlayerState;
+  public enemyState: PlayerState;
+  public allyState: PlayerState;
 
   private stateEnum: typeof PlayerState = PlayerState;
   private playerEnum: typeof PlayerTeam = PlayerTeam;
@@ -22,8 +22,8 @@ export class ArenaComponent implements OnInit {
   }
 
   private initDefaultStates(): void {
-    this.enemyStateEnum = this.stateEnum.STILL;
-    this.allyStateEnum = this.stateEnum.STILL;
+    this.enemyState = this.stateEnum.STILL;
+    this.allyState = this.stateEnum.STILL;
   }
 
 }
