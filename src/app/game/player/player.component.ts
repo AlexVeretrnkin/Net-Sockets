@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-
 import {PlayerState} from '../../shared/model/player.state';
 import {PlayerTeam} from '../../shared/model/player.team';
 
@@ -8,7 +7,7 @@ import {PlayerTeam} from '../../shared/model/player.team';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss']
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnInit {
   @Input() team: PlayerTeam;
   @Input() state: PlayerState;
 
@@ -16,5 +15,10 @@ export class PlayerComponent {
   private playerEnum: typeof PlayerTeam = PlayerTeam;
 
   constructor() { }
+
+  ngOnInit() {
+    this.team = PlayerTeam.ALLY;
+    this.state = PlayerState.ATTACKING;
+  }
 
 }

@@ -1,3 +1,5 @@
+<div class="player-text"> HP: {{health}} / 100 </div>
+<progress id="health" value="{{health}}" max="100"></progress>
 <div *ngIf="team == playerEnum.ALLY">
   <img *ngIf="state === stateEnum.STILL" src="./assets/player/ally_still.png">
 
