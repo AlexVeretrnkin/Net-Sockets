@@ -10,6 +10,7 @@ import {PlayerTeam} from '../../shared/model/player.team';
 export class PlayerComponent implements OnInit {
   @Input() team: PlayerTeam;
   @Input() state: PlayerState;
+  @Input() health: number;
 
   private stateEnum: typeof PlayerState = PlayerState;
   private playerEnum: typeof PlayerTeam = PlayerTeam;
@@ -17,8 +18,6 @@ export class PlayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.team = PlayerTeam.ALLY;
-    this.state = PlayerState.ATTACKING;
   }
 
 }
