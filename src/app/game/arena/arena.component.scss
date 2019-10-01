@@ -7,3 +7,22 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.action-button {
+  width: 200px;
+  height: 150px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .hide-nosm {
+    display: initial;
+  }
+}
+
+
+@media only screen and (min-width: 800px) {
+  .hide-nosm {
+    display:none;
+  }
+}

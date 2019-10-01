@@ -8,6 +8,8 @@ import {PlayerTeam} from '../../shared/model/player.team';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
+  @Input() name: string;
+  @Input() health: PlayerTeam;
   @Input() team: PlayerTeam;
   @Input() state: PlayerState;
 
@@ -17,8 +19,8 @@ export class PlayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.team = PlayerTeam.ALLY;
-    this.state = PlayerState.ATTACKING;
+    this.name = 'Test';
+    // Nothing
   }
 
 }
