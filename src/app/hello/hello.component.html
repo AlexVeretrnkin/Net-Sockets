@@ -4,6 +4,7 @@
 
 <button
     class="button"
+    (click)="test()"
     [disabled]="ns.name === '' || !ns.name"
     [routerLink]="'/game'"
 >

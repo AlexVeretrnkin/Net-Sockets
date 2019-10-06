@@ -13,4 +13,8 @@ export class HelloComponent implements OnInit {
 
   public ngOnInit(): void {
   }
+
+  public test(): void {
+    this.ns.timestamp = new Date().getTime();
+  }
 }

@@ -22,6 +22,8 @@ export class ArenaComponent implements OnInit {
   private stateEnum: typeof PlayerState = PlayerState;
   private playerEnum: typeof PlayerTeam = PlayerTeam;
 
+  private currentUserId: string;
+
   constructor(
     private socketService: WebsocketService,
     private nameService: NameService
@@ -31,8 +33,10 @@ export class ArenaComponent implements OnInit {
   public ngOnInit(): void {
     this.initDefaultStates();
 
-    this.socketService.on('message').subscribe(x => console.log(JSON.parse(x['response']))); // tslint-disable-line no-use-before-define
-    this.socketService.send('name', this.nameService.name + new Date().getTime().toString());
+    this.currentUserId = this.nameService.name + ':' + this.nameService.timestamp.toString();
+
+    this.socketService.on('message').subscribe((x: {response: any}) => console.log(JSON.parse(x.response)));
+    this.socketService.send('name', this.currentUserId);
   }
 
   private initDefaultStates(): void {
@@ -44,23 +48,11 @@ export class ArenaComponent implements OnInit {
     this.socketService.connect();
   }
 
-  public attackForUser1(): void {
-    this.socketService.send('name', {name: 'Test03', action: 'attack'});
+  public attack(): void {
+    this.socketService.send('name', {name: this.currentUserId, action: 'attack'});
   }
 
-  public attackForUser2(): void {
-    this.socketService.send('name', {name: 'Test04', action: 'attack'});
-  }
-
-  public connectUser2(): void {
-    this.socketService.send('name', 'Test04');
-  }
-
-  public connectUser1(): void {
-    this.socketService.send('name', 'Test03');
-  }
-
-  public dropConnection(): void {
-    this.socketService.ngOnDestroy();
+  public defend(): void {
+    this.socketService.send('name', {name: this.currentUserId, action: 'defend'});
   }
 }
