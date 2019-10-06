@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NameService} from '../service/name.service';
 
 @Component({
   selector: 'app-hello',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hello.component.scss']
 })
 export class HelloComponent implements OnInit {
-
   public inputValue: string = null;
 
-  constructor() { }
+  constructor(private ns: NameService) { }
 
   public ngOnInit(): void {
   }

@@ -27,7 +27,7 @@ import { WebsocketModule } from './websocket';
       GameModule,
 
       AppRoutingModule,
-      FormsModule
+      FormsModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
