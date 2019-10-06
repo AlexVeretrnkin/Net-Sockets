@@ -45,7 +45,7 @@ export class ArenaComponent implements OnInit {
     this.socketService.on('message').subscribe(
       (x: { response: any }) => {
         const json: any = JSON.parse(x.response) as any;
-        const ally = json[key];
+        const ally = json[this.currentUserId];
         this.allyHP = ally.hp;
         if (ally.blocking) {
           this.allyState = PlayerState.DEFENDING;
@@ -54,7 +54,7 @@ export class ArenaComponent implements OnInit {
         }
 
         Object.keys(JSON.parse(x.response)).forEach((key) => {
-          if (key.contains(':') && (key !== this.currentUserId)) {
+          if (key.indexOf(':') && (key !== this.currentUserId)) {
             this.enemyName = key.split(':')[0];
             const enemy = json[key];
             this.enemyHP = enemy.hp;
@@ -72,10 +72,6 @@ export class ArenaComponent implements OnInit {
   private initDefaultStates(): void {
     this.enemyState = this.stateEnum.STILL;
     this.allyState = this.stateEnum.STILL;
-  }
-
-  public test(): void {
-    this.socketService.connect();
   }
 
   public attack(): void {
