@@ -37,6 +37,10 @@ export class ArenaComponent implements OnInit {
     this.allyState = this.stateEnum.STILL;
   }
 
+  public test(): void {
+    this.socketService.connect();
+  }
+
   public attackForUser1(): void {
     this.socketService.send('name', {name: 'Test01', action: 'attack'});
   }
@@ -50,7 +54,7 @@ export class ArenaComponent implements OnInit {
   }
 
   public connectUser1(): void {
-    this.socketService.send('createName', 'Test01');
+    this.socketService.send('name', 'Test01');
   }
 
   public dropConnection(): void {

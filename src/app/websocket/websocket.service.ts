@@ -46,6 +46,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
             },
             openObserver: {
                 next: (event: Event) => {
+                    console.log(event);
                     console.log('WebSocket connected!');
                     this.connection$.next(true);
                 }
@@ -74,16 +75,19 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
         this.connect();
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy(): void {
+        this.websocket$.complete();
         this.websocketSub.unsubscribe();
         this.statusSub.unsubscribe();
+        this.wsMessages$.complete();
+        this.connection$.complete();
     }
 
 
     /*
     * connect to WebSocked
     * */
-    private connect(): void {
+    public connect(): void {
         this.websocket$ = new WebSocketSubject(this.config);
 
         this.websocket$.subscribe(
@@ -91,7 +95,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
             (error: Event) => {
                 if (!this.websocket$) {
                     // run reconnect if errors
-                    this.reconnect();
+                    // this.reconnect();
                 }
             });
     }
