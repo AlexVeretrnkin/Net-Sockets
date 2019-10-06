@@ -140,7 +140,7 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
     public send(event: string, data: any = {}): void {
         if (event) {
             console.log('Send');
-            this.websocket$.next(JSON.stringify(data) as any);
+            this.websocket$.next(data);
         } else {
             console.error('Send error!');
         }

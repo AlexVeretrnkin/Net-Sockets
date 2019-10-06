@@ -29,9 +29,7 @@ export class ArenaComponent implements OnInit {
   public ngOnInit(): void {
     this.initDefaultStates();
 
-    this.socketService.ngOnDestroy();
-
-    this.socketService.on('message').subscribe(x => console.log(JSON.parse(x.response)));
+    this.socketService.on('message').subscribe(x => console.log(JSON.parse(x['response'])));
   }
 
   private initDefaultStates(): void {
@@ -39,11 +37,23 @@ export class ArenaComponent implements OnInit {
     this.allyState = this.stateEnum.STILL;
   }
 
-  public test1(): void {
-    this.socketService.send('name', 'Test01');
+  public attackForUser1(): void {
+    this.socketService.send('name', {name: 'Test01', action: 'attack'});
   }
 
-  public test2(): void {
+  public attackForUser2(): void {
+    this.socketService.send('name', {name: 'Test02', action: 'attack'});
+  }
+
+  public connectUser2(): void {
     this.socketService.send('name', 'Test02');
+  }
+
+  public connectUser1(): void {
+    this.socketService.send('createName', 'Test01');
+  }
+
+  public dropConnection(): void {
+    this.socketService.ngOnDestroy();
   }
 }
