@@ -8,23 +8,23 @@ import { IWebsocketService, IWsMessage, WebSocketConfig } from './websocket.inte
 import { config } from './websocket.config';
 
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class WebsocketService implements IWebsocketService, OnDestroy {
 
-    private config: WebSocketSubjectConfig<IWsMessage<any>>;
+    private readonly config: WebSocketSubjectConfig<IWsMessage<any>>;
 
     private websocketSub: SubscriptionLike;
     private statusSub: SubscriptionLike;
 
     private reconnection$: Observable<number>;
-    private websocket$: WebSocketSubject<IWsMessage<any>>;
+    // private websocket$: WebSocketSubject<IWsMessage<any>>;
+    private websocket$: WebSocketSubject<any>;
     private connection$: Observer<boolean>;
-    private wsMessages$: Subject<IWsMessage<any>>;
+    // private wsMessages$: Subject<IWsMessage<any>>;
+    private wsMessages$: Subject<any>;
 
     private reconnectInterval: number;
-    private reconnectAttempts: number;
+    private readonly reconnectAttempts: number;
     private isConnected: boolean;
 
 
@@ -124,10 +124,12 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
     * */
     public on<T>(event: string): Observable<T> {
         if (event) {
-            return this.wsMessages$.pipe(
-                filter((message: IWsMessage<T>) => message.event === event),
-                map((message: IWsMessage<T>) => message.data)
-            );
+            console.log('On');
+            // return this.wsMessages$.pipe(
+            //     filter((message: IWsMessage<T>) => message.event === event),
+            //     map((message: IWsMessage<T>) => message.data)
+            // );
+            return this.wsMessages$;
         }
     }
 
@@ -136,8 +138,9 @@ export class WebsocketService implements IWebsocketService, OnDestroy {
     * on message to server
     * */
     public send(event: string, data: any = {}): void {
-        if (event && this.isConnected) {
-            this.websocket$.next(<any>JSON.stringify({ event, data }));
+        if (event) {
+            console.log('Send');
+            this.websocket$.next(JSON.stringify(data) as any);
         } else {
             console.error('Send error!');
         }
