@@ -19,6 +19,9 @@ export class ArenaComponent implements OnInit {
   public enemyState: PlayerState;
   public allyState: PlayerState;
 
+  public alyName = 'Tyanka';
+  public enemyName = 'Bitart';
+
   private stateEnum: typeof PlayerState = PlayerState;
   private playerEnum: typeof PlayerTeam = PlayerTeam;
 

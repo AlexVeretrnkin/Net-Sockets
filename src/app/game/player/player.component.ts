@@ -24,7 +24,6 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.name = 'Test';
     // Nothing
   }
 

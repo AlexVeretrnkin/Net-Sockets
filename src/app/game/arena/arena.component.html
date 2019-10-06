@@ -1,10 +1,12 @@
 <app-player
     [team]="playerEnum.ALLY"
     [state]="allyState"
+    [name]="alyName"
 ></app-player>
 <app-player
     [team]="playerEnum.ENEMY"
     [state]="enemyState"
+    [name]="enemyName"
 ></app-player>
 
 <button (click)="attack()">attack</button>
