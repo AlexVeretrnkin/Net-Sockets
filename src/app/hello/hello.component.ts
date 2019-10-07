@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import {NameService} from '../service/name.service';
 
 @Component({
@@ -9,7 +10,9 @@ import {NameService} from '../service/name.service';
 export class HelloComponent implements OnInit {
   public inputValue: string = null;
 
-  constructor(private ns: NameService) { }
+  constructor(
+    private ns: NameService
+  ) { }
 
   public ngOnInit(): void {
   }

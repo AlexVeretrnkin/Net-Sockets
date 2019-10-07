@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {environment} from '../../../environments/environment';
 
 import {PlayerState} from '../../shared/model/player.state';
 import {PlayerTeam} from '../../shared/model/player.team';
-import {WS} from '../../shared/model/websocket.events';
 
 import {WebsocketService} from '../../websocket';
 import {NameService} from '../../service/name.service';
@@ -39,34 +37,25 @@ export class ArenaComponent implements OnInit {
   public ngOnInit(): void {
     this.initDefaultStates();
 
-    this.currentUserId = this.nameService.name + ':' + this.nameService.timestamp.toString();
-    this.allyName = this.nameService.name;
+    this.currentUserId = this.nameService.getPlayerId();
+    this.nameService.setPlayerId();
+
+    this.socketService.send('name', this.currentUserId);
 
     this.socketService.on('message').subscribe(
       (x: { response: any }) => {
-        const json: any = JSON.parse(x.response) as any;
-        const ally = json[this.currentUserId];
-        this.allyHP = ally.hp;
-        if (ally.blocking) {
-          this.allyState = PlayerState.DEFENDING;
-        } else if (ally.attack) {
-          this.allyState = PlayerState.ATTACKING;
-        }
+        console.log(JSON.parse(x.response));
 
-        Object.keys(JSON.parse(x.response)).forEach((key) => {
-          if (key.indexOf(':') && (key !== this.currentUserId)) {
-            this.enemyName = key.split(':')[0];
-            const enemy = json[key];
-            this.enemyHP = enemy.hp;
-            if (enemy.blocking) {
-              this.enemyState = PlayerState.DEFENDING;
-            } else if (enemy.attack) {
-              this.enemyState = PlayerState.ATTACKING;
+        Object.keys(x.response).forEach((item: string) => {
+          if (item === this.currentUserId) {
+            this.allyName = item;
+          } else {
+            if (item !== 'duel') {
+              this.enemyName = item;
             }
           }
         });
       });
-    this.socketService.send('name', this.currentUserId);
   }
 
   private initDefaultStates(): void {
