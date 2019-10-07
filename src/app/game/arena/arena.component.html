@@ -22,6 +22,7 @@
 </div>
 <div *ngIf="!gameStarted && won === playerEnum.ALLY">
   You've won!
+  <button (click)="next()">Start next game</button>
 </div>
 
 <div *ngIf="!gameStarted && won === playerEnum.ENEMY">

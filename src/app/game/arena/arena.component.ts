@@ -94,6 +94,10 @@ export class ArenaComponent implements OnInit {
     this.allyState = this.stateEnum.STILL;
   }
 
+  public next(): void {
+    this.socketService.send('name', this.currentUserId);
+  }
+
   public attack(): void {
     this.socketService.send('name', {name: this.currentUserId, action: 'attack'});
   }
