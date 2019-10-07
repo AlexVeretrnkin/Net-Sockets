@@ -21,11 +21,11 @@
   Waiting for players
 </div>
 <div *ngIf="!gameStarted && won === playerEnum.ALLY">
-  You've won! <br>
+  <p>You've won!</p>
   <button (click)="next()">Start next game</button>
 </div>
 
 <div *ngIf="!gameStarted && won === playerEnum.ENEMY">
-  You've lost! <br>
+  <p>You've lost!</p>
   <button (click)="next()">Start next game</button>
 </div>
