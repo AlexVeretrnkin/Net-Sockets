@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { strictEqual } from 'assert';
+import { environment } from '../../../environments/environment';
 
 import {PlayerState} from '../../shared/model/player.state';
 import {PlayerTeam} from '../../shared/model/player.team';
@@ -49,7 +50,7 @@ export class ArenaComponent implements OnInit {
         const object = JSON.parse(x.response);
         console.log(object);
 
-        if (Object.keys(object).indexOf('opponents') && !this.enemyName) {
+        if (Object.keys(object).indexOf('opponents') && object['opponents'] && !this.enemyName) {
           Object.values(object['opponents']).forEach((item: string) => {
             if (item !== this.allyName) {
               this.enemyName = item;
@@ -62,7 +63,9 @@ export class ArenaComponent implements OnInit {
             if (item === this.currentUserId) {
               this.allyHP = object[item].hp;
             } else {
-              this.enemyHP = object[item].hp;
+              if (item !== 'duel') {
+                this.enemyHP = object[item].hp;
+              }
             }
           });
         }
