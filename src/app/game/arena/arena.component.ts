@@ -41,7 +41,7 @@ export class ArenaComponent implements OnInit {
     this.currentUserId = this.nameService.getPlayerId();
     this.allyName = this.currentUserId;
 
-    // this.socketService.send('name', this.currentUserId);
+    this.socketService.send('name', this.currentUserId);
 
     this.socketService.on('message').subscribe(
       (x: { response: any }) => {
@@ -50,8 +50,8 @@ export class ArenaComponent implements OnInit {
 
         if (Object.keys(object).length === 2) {
           Object.values(object).forEach((item: string, index: number) => {
-            if (index > 0 && item !== this.allyName) {
-              this.enemyName = item;
+            if (index > 0 && object[item] !== this.allyName) {
+              this.enemyName = object[item];
             }
           });
         }
