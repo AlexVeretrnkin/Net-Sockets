@@ -20,7 +20,7 @@ export class ArenaComponent implements OnInit {
   public allyState: PlayerState;
 
   public allyName = 'Tyanka';
-  public enemyName = 'Bitart';
+  public enemyName = null;
   public allyHP = 100;
   public enemyHP = 100;
 
@@ -49,7 +49,7 @@ export class ArenaComponent implements OnInit {
         const object = JSON.parse(x.response);
         console.log(object);
 
-        if (Object.keys(object).indexOf('opponents')) {
+        if (Object.keys(object).indexOf('opponents') && !this.enemyName) {
           Object.values(object['opponents']).forEach((item: string) => {
             if (item !== this.allyName) {
               this.enemyName = item;
