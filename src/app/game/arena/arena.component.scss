@@ -14,15 +14,4 @@
   text-align: center;
 }
 
-@media only screen and (max-width: 800px) {
-  .hide-nosm {
-    display: initial;
-  }
-}
 
-
-@media only screen and (min-width: 800px) {
-  .hide-nosm {
-    display:none;
-  }
-}

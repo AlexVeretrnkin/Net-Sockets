@@ -1,4 +1,5 @@
-<app-player
+<div *ngIf="gameStarted">
+  <app-player
     [team]="playerEnum.ALLY"
     [state]="allyState"
     [name]="allyName"
@@ -11,8 +12,18 @@
     [health]="enemyHP"
 ></app-player>
 
-<button (click)="attack()">attack</button>
-<button (click)="defend()">defend</button>
 
-<button class="hide-nosm action-button" style="position: absolute; bottom: 0; left: 0">Attack</button>
-<button class="hide-nosm action-button" style="position: absolute; bottom: 0; right: 0">Block</button>
+<button class="hide-nosm action-button" style="position: absolute; bottom: 0; left: 0" (click)="attack()">Attack</button>
+<button class="hide-nosm action-button" style="position: absolute; bottom: 0; right: 0" (click)="defend()">Block</button>
+</div>
+
+<div *ngIf="!gameStarted && won == null">
+  Waiting for players
+</div>
+<div *ngIf="!gameStarted && won === playerEnum.ALLY">
+  You've won!
+</div>
+
+<div *ngIf="!gameStarted && won === playerEnum.ENEMY">
+  You've lost!
+</div>

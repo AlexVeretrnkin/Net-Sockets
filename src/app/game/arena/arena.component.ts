@@ -76,6 +76,8 @@ export class ArenaComponent implements OnInit {
           }
         } else if (Object.entries(object).length === 5) {
           console.log('Game ended');
+          this.enemyHP = object[this.enemyName].hp;
+          this.allyHP = object[this.allyName].hp;
           if (object.win === this.allyName) {
             this.won = this.playerEnum.ALLY;
             this.gameStarted = false;
