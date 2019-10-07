@@ -51,7 +51,7 @@ export class ArenaComponent implements OnInit {
         const object = JSON.parse(x.response);
         console.log(object);
 
-        if (object.entries().length === 2) {
+        if (Object.entries(object).length === 2) {
           console.log('Game started');
           this.gameStarted = true;
           this.won = null;
@@ -61,7 +61,7 @@ export class ArenaComponent implements OnInit {
           this.enemyHP = 100;
           this.allyState = PlayerState.STILL;
           this.enemyState = PlayerState.STILL;
-        } else if (object.entries().length === 3) {
+        } else if (Object.entries(object).length === 3) {
           this.enemyHP = object[this.enemyName].hp;
           this.allyHP = object[this.allyName].hp;
           if (object[this.enemyName].blocking === true) {
@@ -74,7 +74,7 @@ export class ArenaComponent implements OnInit {
           } else if (object[this.allyName].attack === true) {
             this.allyState = PlayerState.ATTACKING;
           }
-        } else if (object.entries().length === 5) {
+        } else if (Object.entries(object).length === 5) {
           console.log('Game ended');
           if (object.win === this.allyName) {
             this.won = this.playerEnum.ALLY;
