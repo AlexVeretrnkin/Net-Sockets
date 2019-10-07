@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import { strictEqual } from 'assert';
-import { environment } from '../../../environments/environment';
+import {strictEqual} from 'assert';
+import {environment} from '../../../environments/environment';
 
 import {PlayerState} from '../../shared/model/player.state';
 import {PlayerTeam} from '../../shared/model/player.team';
-import { StartDuelModel } from '../../shared/model/start-duel.model';
+import {StartDuelModel} from '../../shared/model/start-duel.model';
 
 import {WebsocketService} from '../../websocket';
 import {NameService} from '../../service/name.service';
@@ -16,7 +16,6 @@ import {NameService} from '../../service/name.service';
     styleUrls: ['./arena.component.scss']
   })
 export class ArenaComponent implements OnInit {
-
   public enemyState: PlayerState;
   public allyState: PlayerState;
 
@@ -25,6 +24,8 @@ export class ArenaComponent implements OnInit {
   public allyHP = 100;
   public enemyHP = 100;
 
+  public gameStarted = false;
+  public won: PlayerTeam;
 
   private stateEnum: typeof PlayerState = PlayerState;
   private playerEnum: typeof PlayerTeam = PlayerTeam;
@@ -50,24 +51,38 @@ export class ArenaComponent implements OnInit {
         const object = JSON.parse(x.response);
         console.log(object);
 
-        if (Object.keys(object).indexOf('opponents') && object['opponents'] && !this.enemyName) {
-          Object.values(object['opponents']).forEach((item: string) => {
-            if (item !== this.allyName) {
-              this.enemyName = item;
-            }
-          });
-        }
-
-        if (Object.values(object).length === 3 || Object.values(object).length > 3) {
-          Object.keys(object).forEach((item: string) => {
-            if (item === this.currentUserId) {
-              this.allyHP = object[item].hp;
-            } else {
-              if (item !== 'duel') {
-                this.enemyHP = object[item].hp;
-              }
-            }
-          });
+        if (object.entries().length === 2) {
+          console.log('Game started');
+          this.gameStarted = true;
+          this.won = null;
+          this.enemyName = object.opponents[0] === this.allyName
+            ? object.opponents[1] : object.opponents[0];
+          this.allyHP = 100;
+          this.enemyHP = 100;
+          this.allyState = PlayerState.STILL;
+          this.enemyState = PlayerState.STILL;
+        } else if (object.entries().length === 3) {
+          this.enemyHP = object[this.enemyName].hp;
+          this.allyHP = object[this.allyName].hp;
+          if (object[this.enemyName].blocking === true) {
+            this.enemyState = PlayerState.DEFENDING;
+          } else if (object[this.enemyName].attack === true) {
+            this.enemyState = PlayerState.ATTACKING;
+          }
+          if (object[this.allyName].blocking === true) {
+            this.allyState = PlayerState.DEFENDING;
+          } else if (object[this.allyName].attack === true) {
+            this.allyState = PlayerState.ATTACKING;
+          }
+        } else if (object.entries().length === 5) {
+          console.log('Game ended');
+          if (object.win === this.allyName) {
+            this.won = this.playerEnum.ALLY;
+            this.gameStarted = false;
+          } else {
+            this.won = this.playerEnum.ENEMY;
+            this.gameStarted = false;
+          }
         }
       });
   }
