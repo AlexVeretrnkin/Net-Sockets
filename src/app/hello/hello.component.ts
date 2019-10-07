@@ -19,5 +19,6 @@ export class HelloComponent implements OnInit {
 
   public test(): void {
     this.ns.timestamp = new Date().getTime();
+    this.ns.setPlayerId();
   }
 }
